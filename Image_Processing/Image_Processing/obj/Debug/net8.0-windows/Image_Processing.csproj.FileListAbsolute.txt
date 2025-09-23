@@ -1,0 +1,16 @@
+C:\Users\Jamiel Kyne Pinca\source\repos\Image_Processing\Image_Processing\bin\Debug\net8.0-windows\Image_Processing.exe
+C:\Users\Jamiel Kyne Pinca\source\repos\Image_Processing\Image_Processing\bin\Debug\net8.0-windows\Image_Processing.deps.json
+C:\Users\Jamiel Kyne Pinca\source\repos\Image_Processing\Image_Processing\bin\Debug\net8.0-windows\Image_Processing.runtimeconfig.json
+C:\Users\Jamiel Kyne Pinca\source\repos\Image_Processing\Image_Processing\bin\Debug\net8.0-windows\Image_Processing.dll
+C:\Users\Jamiel Kyne Pinca\source\repos\Image_Processing\Image_Processing\bin\Debug\net8.0-windows\Image_Processing.pdb
+C:\Users\Jamiel Kyne Pinca\source\repos\Image_Processing\Image_Processing\obj\Debug\net8.0-windows\Image_Processing.Pinca_Image_Processing.resources
+C:\Users\Jamiel Kyne Pinca\source\repos\Image_Processing\Image_Processing\obj\Debug\net8.0-windows\Image_Processing.csproj.GenerateResource.cache
+C:\Users\Jamiel Kyne Pinca\source\repos\Image_Processing\Image_Processing\obj\Debug\net8.0-windows\Image_Processing.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Jamiel Kyne Pinca\source\repos\Image_Processing\Image_Processing\obj\Debug\net8.0-windows\Image_Processing.AssemblyInfoInputs.cache
+C:\Users\Jamiel Kyne Pinca\source\repos\Image_Processing\Image_Processing\obj\Debug\net8.0-windows\Image_Processing.AssemblyInfo.cs
+C:\Users\Jamiel Kyne Pinca\source\repos\Image_Processing\Image_Processing\obj\Debug\net8.0-windows\Image_Processing.csproj.CoreCompileInputs.cache
+C:\Users\Jamiel Kyne Pinca\source\repos\Image_Processing\Image_Processing\obj\Debug\net8.0-windows\Image_Processing.dll
+C:\Users\Jamiel Kyne Pinca\source\repos\Image_Processing\Image_Processing\obj\Debug\net8.0-windows\refint\Image_Processing.dll
+C:\Users\Jamiel Kyne Pinca\source\repos\Image_Processing\Image_Processing\obj\Debug\net8.0-windows\Image_Processing.pdb
+C:\Users\Jamiel Kyne Pinca\source\repos\Image_Processing\Image_Processing\obj\Debug\net8.0-windows\Image_Processing.genruntimeconfig.cache
+C:\Users\Jamiel Kyne Pinca\source\repos\Image_Processing\Image_Processing\obj\Debug\net8.0-windows\ref\Image_Processing.dll
