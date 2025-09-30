@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Jamiel Kyne Pinca\\source\\repos\\Image_Processing\\Image_Processing\\Image_Processing.csproj": {}
+    "C:\\Users\\Jamiel Kyne Pinca\\source\\repos\\Convolution_Matrix\\Image_Processing\\Image_Processing\\Image_Processing.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Jamiel Kyne Pinca\\source\\repos\\Image_Processing\\Image_Processing\\Image_Processing.csproj": {
+    "C:\\Users\\Jamiel Kyne Pinca\\source\\repos\\Convolution_Matrix\\Image_Processing\\Image_Processing\\Image_Processing.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Jamiel Kyne Pinca\\source\\repos\\Image_Processing\\Image_Processing\\Image_Processing.csproj",
+        "projectUniqueName": "C:\\Users\\Jamiel Kyne Pinca\\source\\repos\\Convolution_Matrix\\Image_Processing\\Image_Processing\\Image_Processing.csproj",
         "projectName": "Image_Processing",
-        "projectPath": "C:\\Users\\Jamiel Kyne Pinca\\source\\repos\\Image_Processing\\Image_Processing\\Image_Processing.csproj",
+        "projectPath": "C:\\Users\\Jamiel Kyne Pinca\\source\\repos\\Convolution_Matrix\\Image_Processing\\Image_Processing\\Image_Processing.csproj",
         "packagesPath": "C:\\Users\\Jamiel Kyne Pinca\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Jamiel Kyne Pinca\\source\\repos\\Image_Processing\\Image_Processing\\obj\\",
+        "outputPath": "C:\\Users\\Jamiel Kyne Pinca\\source\\repos\\Convolution_Matrix\\Image_Processing\\Image_Processing\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

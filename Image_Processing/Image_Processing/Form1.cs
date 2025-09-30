@@ -2,6 +2,7 @@ using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using WebCamLib;
+using ConvolutionaryMatrix;
 
 namespace Image_Processing
 {
@@ -9,14 +10,15 @@ namespace Image_Processing
     {
 
         Bitmap processedImage = null;
-        Bitmap imageA, imageB, colorGreen;
-        private Device[] webcam, webcam2;
-        private bool isVideo = false, isVideo2 = false;
-        Device device, device2;
+        Bitmap imageA, imageB;
+        private Device[] webcam;
+        private bool isVideo = false;
+        Device device; 
         public Pinca_Image_Processing()
         {
             InitializeComponent();
         }
+         
 
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -70,12 +72,6 @@ namespace Image_Processing
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            //if (isVideo2)
-            //{
-            //    isVideo2 = false;
-            //    button7.Text = "Display Webcam";
-            //    webcam2[0].Stop();
-            //}
 
             OpenFileDialog file = new OpenFileDialog();
             file.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
@@ -110,10 +106,6 @@ namespace Image_Processing
 
         private void greyScaleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (isVideo)
-            {
-
-            }
 
             if (pictureBox1.Image != null)
             {
@@ -354,61 +346,208 @@ namespace Image_Processing
             }
 
         }
+        public static bool Smooth(Bitmap b, int nWeight)
+        {
+            ConvMatrix m = new ConvMatrix();
+            m.SetAll(1);
+            m.Pixel = nWeight;
+            m.Factor = nWeight + 8;
+            return BitmapFilter.Conv3x3(b, m);
+        }
+        private void smoothToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pictureBox1.Image == null) { return; }
+            Bitmap originalImage = new Bitmap(pictureBox1.Image);
+            if (Smooth(originalImage, 1))
+                pictureBox2.Image = originalImage;
+            else
+                MessageBox.Show($"image Processing unsuccessfull");
 
-        //private void button7_Click(object sender, EventArgs e)
-        //{
-        //    if (button7.Text == "Picture" && webcam2 != null)
-        //    {
-        //        try
-        //        {
-        //            device2.Sendmessage();
+        }
+        public static bool Gaussian_Blur(Bitmap b, int nWeight)
+        {
+            ConvMatrix m = new ConvMatrix();
+            m.SetAll(1);
+            m.TopMid = m.MidLeft = m.MidRight = m.BottomMid = 2;
+            m.Pixel = nWeight; // 4
+            m.Factor = 16;
+            return BitmapFilter.Conv3x3(b, m);
+        }
+        private void gaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pictureBox1.Image == null) { return; }
+            Bitmap originalImage = new Bitmap(pictureBox1.Image);
+            if (Gaussian_Blur(originalImage, 4))
+                pictureBox2.Image = originalImage;
+            else
+                MessageBox.Show($"image Processing unsuccessfull");
+        }
+        public static bool Sharpen(Bitmap b, int nWeight)
+        {
+            ConvMatrix m = new ConvMatrix();
+            m.SetAll(0);
+            m.TopMid = m.MidLeft = m.MidRight = m.BottomMid = -2;
+            m.Pixel = nWeight; // 11
+            m.Factor = 3;
+            return BitmapFilter.Conv3x3(b, m);
+        }
+        private void sharpenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pictureBox1.Image == null) { return; }
+            Bitmap originalImage = new Bitmap(pictureBox1.Image);
+            if (Sharpen(originalImage, 11))
+                pictureBox2.Image = originalImage;
+            else
+                MessageBox.Show($"image Processing unsuccessfull");
+        }
 
-        //            if (Clipboard.ContainsImage())
-        //            {
-        //                Image snapshot = Clipboard.GetImage();
-        //                pictureBox4.Image = new Bitmap(snapshot, pictureBox4.Width, pictureBox4.Height);
-        //                imageA = new Bitmap(snapshot, pictureBox4.Width, pictureBox4.Height);
-        //            }
+        public static bool Mean_Removal(Bitmap b, int nWeight)
+        {
+            ConvMatrix m = new ConvMatrix();
+            m.SetAll(-1);
+            m.Pixel = nWeight; // 9
+            m.Factor = 1;
+            return BitmapFilter.Conv3x3(b, m);
+        }
+        private void meanRemovalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pictureBox1.Image == null) { return; }
+            Bitmap originalImage = new Bitmap(pictureBox1.Image);
+            if (Mean_Removal(originalImage, 9))
+                pictureBox2.Image = originalImage;
+            else
+                MessageBox.Show($"image Processing unsuccessfull");
+        }
 
-        //            device2.Stop();
-        //            device2 = null;
+        public static bool Emboss_Laplascian(Bitmap b, int nWeight)
+        {
+            ConvMatrix m = new ConvMatrix();
+            m.SetAll(-1);
+            m.TopMid = m.MidLeft = m.MidRight = m.BottomMid = 0;
+            m.Pixel = nWeight; // 4
+            m.Factor = 1;
+            m.Offset = 127;
+            return BitmapFilter.Conv3x3(b, m);
+        }
+        private void embossToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pictureBox1.Image == null) { return; }
+            Bitmap originalImage = new Bitmap(pictureBox1.Image);
+            if (Emboss_Laplascian(originalImage, 4))
+                pictureBox2.Image = originalImage;
+            else
+                MessageBox.Show($"image Processing unsuccessfull");
+        }
 
-        //            button7.Text = "Display Webcam";
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            MessageBox.Show("Error capturing snapshot: " + ex.Message);
-        //        }
-        //        return;
-        //    }
+        public static bool Horz_Vertical(Bitmap b, int nWeight)
+        {
+            ConvMatrix m = new ConvMatrix();
+            m.SetAll(0);
+            m.TopMid = m.MidLeft = m.MidRight = m.BottomMid = -1;
+            m.Pixel = nWeight; // 4
+            m.Factor = 1;
+            m.Offset = 127;
+            return BitmapFilter.Conv3x3(b, m);
+        }
+        private void horzVertToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (pictureBox1.Image == null) { return; }
+            Bitmap originalImage = new Bitmap(pictureBox1.Image);
+            if (Horz_Vertical(originalImage, 4))
+                pictureBox2.Image = originalImage;
+            else
+                MessageBox.Show($"image Processing unsuccessfull");
+        }
 
-        //    if (!isVideo2)
-        //    {
-        //        pictureBox4.Image = null;
-        //    }
+        public static bool All_Directions(Bitmap b, int nWeight)
+        {
+            ConvMatrix m = new ConvMatrix();
+            m.SetAll(-1);
+            m.Pixel = nWeight; // 8
+            m.Factor = 1;
+            m.Offset = 127;
+            return BitmapFilter.Conv3x3(b, m);
+        }
+        private void allDirectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pictureBox1.Image == null) { return; }
+            Bitmap originalImage = new Bitmap(pictureBox1.Image);
+            if (All_Directions(originalImage, 8))
+                pictureBox2.Image = originalImage;
+            else
+                MessageBox.Show($"image Processing unsuccessfull");
+        }
 
-        //    webcam2 = DeviceManager.GetAllDevices();
-        //    if (webcam2.Length > 0)
-        //    {
-        //        isVideo2 = true;
-        //        device2 = webcam2[0];
-        //        device2.ShowWindow(pictureBox4);
-        //        pictureBox4.Refresh();
+        public static bool Lossy(Bitmap b, int nWeight)
+        {
+            ConvMatrix m = new ConvMatrix();
+            m.SetAll(1);
+            m.TopMid = m.MidLeft = m.MidRight = m.BottomLeft = m.BottomRight = -2;
+            m.Pixel = nWeight; // 4
+            m.Factor = 1;
+            m.Offset = 127;
+            return BitmapFilter.Conv3x3(b, m);
+        }
 
-        //        button7.Text = "Picture";
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("No webcam found");
-        //    }
-        //}
+        private void lossyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pictureBox1.Image == null) { return; }
+            Bitmap originalImage = new Bitmap(pictureBox1.Image);
+            if (Lossy(originalImage, 4))
+                pictureBox2.Image = originalImage;
+            else
+                MessageBox.Show($"image Processing unsuccessfull");
+        }
+
+        public static bool Horizontal(Bitmap b, int nWeight)
+        {
+            ConvMatrix m = new ConvMatrix();
+            m.SetAll(0);
+            m.MidLeft = m.MidRight = -1;
+            m.Pixel = nWeight; // 2
+            m.Factor = 1;
+            m.Offset = 127;
+            return BitmapFilter.Conv3x3(b, m);
+        }
+
+        private void horizontalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pictureBox1.Image == null) { return; }
+            Bitmap originalImage = new Bitmap(pictureBox1.Image);
+            if (Horizontal(originalImage, 2))
+                pictureBox2.Image = originalImage;
+            else
+                MessageBox.Show($"image Processing unsuccessfull");
+        }
+
+        public static bool Vertical(Bitmap b, int nWeight)
+        {
+            ConvMatrix m = new ConvMatrix();
+            m.SetAll(0);
+            m.TopMid = -1;
+            m.BottomMid = -1;
+            m.Pixel = nWeight; // 0
+            m.Factor = 1;
+            m.Offset = 127;
+            return BitmapFilter.Conv3x3(b, m);
+        }
+
+        private void verticalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pictureBox1.Image == null) { return; }
+            Bitmap originalImage = new Bitmap(pictureBox1.Image);
+            if (Vertical(originalImage, 0))
+                pictureBox2.Image = originalImage;
+            else
+                MessageBox.Show($"image Processing unsuccessfull");
+        }
 
         private void Form1_Load(object sender, EventArgs e) { }
         private void label1_Click(object sender, EventArgs e) { }
         private void label2_Click(object sender, EventArgs e) { }
         private void pictureBox1_Click(object sender, EventArgs e) { }
         private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e) { }
-
-        
+        private void pictureBox2_Click(object sender, EventArgs e) { }
+        private void horzVertToolStripMenuItem_Click(object sender, EventArgs e) { }
     }
 }
